@@ -11,6 +11,7 @@ Funcionalidades principais:
 - Fornecer informações educativas e de prevenção.
 
 Observações sobre as pastas 'data' e 'data-preperation':
+
 data-preparation/
 Inclui os scripts desenvolvidos em R utilizados na etapa de pré-processamento e preparação dos dados.
 Nessa fase, foram extraídas e tratadas informações provenientes de fontes públicas e homologadas, que posteriormente foram exportadas para arquivos CSV.
