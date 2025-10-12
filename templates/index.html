@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Proteção Solar</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="busca-derm.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+<body>
+<header>
+  <nav class="topo-flex">
+    <div class="form-navegacao">
+  <input type="email" id="email" placeholder="Receba alertas de radiação UV" required />
+  <button type="button" id="btn-cadastrar" class="botao-menu">Cadastrar e-mail</button>
+</div>
+<span id="mensagem" role="status" aria-live="polite"></span>
+
+    <ul class="menu-links">
+      <li><a href="#graficos">Gráficos</a></li>
+      <li><a href="#clima">Clima x Câncer de Pele</a></li>
+      <li><a href="#cancer">Melanoma x Não Melanoma</a></li>
+      <li><a href="#prevencao">Prevenção</a></li>
+    </ul>
+  </nav>
+</header>
+
+     <div id="alerta-uv"></div>
+
+    <main id="Conteudo Principal" tabindex="-1">
+<section class="intro">
+  <div class="texto">
+    <div class="mini_introducao">
+      <h1>A exposição ao sol é inevitável.<br><span>Os cuidados, não.</span></h1>
+    </div>
+    <p>O câncer de pele é o tipo <strong>mais comum</strong> no Brasil e também um dos <strong>mais preveníveis</strong>.Com o aumento das temperaturas e a intensificação dos raios UV, o cuidado com a saúde da pele nunca foi tão necessário.</p>
+    <p>Você sabia que a maioria dos casos poderia ser evitada com proteção adequada e diagnóstico precoce?</p>
+    <a href="#" id="openModalBtn" class="botao">A sua saúde começa com a informação. Clique aqui e saiba mais!</a>
+  </div>
+
+  <div class="imagem-overlay efeito-fixo">
+    <img src="{{ url_for('static', filename='imagens/praia.png') }}" alt="Pessoa aplicando protetor solar em criança">
+    <div class="texto-overlay">
+      <p>
+        Para que o protetor solar se torne eficaz, é preciso passar a quantidade adequada em torno de uma colher de chá para o rosto e três colheres de sopa para o corpo a cada 2 horas, principalmente após nadar ou suar.<br><br>
+        <strong>Use diariamente para proteger sua pele dos raios UV</strong>
+      </p>
+    </div>
+  </div>
+</section>
+
+        <section class="cards-container">
+  <h2>Nesta plataforma, você vai encontrar:</h2>
+  <div class="cards">
+    <div class="card scroll-reveal">
+      <p>📚 Informações confiáveis sobre o câncer de pele</p>
+    </div>
+    <div class="card scroll-reveal">
+      <p>📈 Gráficos interativos sobre o avanço da doença</p>
+    </div>
+    <div class="card scroll-reveal">
+      <p>🛡️ Dicas práticas para se prevenir</p>
+    </div>
+    <div class="card scroll-reveal">
+      <p> E muito mais...</p>
+    </div>
+  </div>
+</section>
+
+        <section id = "clima" class="impactos">
+            
+            <div class="sol">
+            <h2>Impactos do Sol: o que o clima tem a ver com isso?</h2>
+            </div>
+            <div>
+            <p>Estudos recentes apontam que as mudanças climáticas estão diretamente relacionadas ao aumento da radiação solar sobre a Terra, elevando os riscos à saúde humana em especial, à saúde da pele. Pesquisas publicadas na Nature Scientific Reports (2024) revelam que, dependendo do cenário climático, a temperatura média no Brasil pode subir entre 2.7°C e 4.4°C até o fim do século, com maior impacto nas regiões Centro-Oeste e Sudeste.</p>
+            <p>O Instituto Nacional de Meteorologia (INMET) confirmou que o verão de 2024/2025 foi o sexto mais quente desde 1961, com média de 25,02°C — 0,79°C acima da média histórica (INMET, 2025). Esse aumento constante nas temperaturas resulta em ondas de calor mais frequentes e prolongadas, condição que agrava a exposição da população aos raios UV.</p>
+            <p>Segundo o Instituto Nacional do Câncer (INCA, 2022), a exposição solar excessiva entre 10h e 16h está entre os principais fatores de risco para o desenvolvimento do câncer de pele. Mesmo em dias nublados ou no inverno, os raios UV continuam presentes e perigosos.</p>
+            <p>Além disso, dados apontam que o número de dias consecutivos sob onda de calor no Brasil passou de 7 para 52 nas últimas décadas (Correio Braziliense, 2024), intensificando o alerta sobre os efeitos diretos do aquecimento global na saúde pública.</p>
+            </div>
+            <div class="imagem-rio">
+            <img src="{{ url_for('static', filename='imagens/rio.png') }}" alt="Imagem do Rio de Janeiro">
+            </div>
+    
+        </section>
+
+        <section id="cancer" class="diferenca">
+    <div class="container">
+        <!-- Coluna da esquerda -->
+        <div class="coluna">
+            <h2>Melanoma x Não Melanoma: Você sabe qual a diferença?</h2>
+
+            <h3>Câncer de Pele Melanoma</h3>
+            <p>
+                De acordo com o Instituto nacional de câncer (INCA, 2023) o câncer de pele denominado melanoma tem origem nos melanócitos, e pode aparecer em qualquer região do corpo. Em pessoas de pele negra, possui o costume de aparecer em regiões mais claras, como a palma da mão, por exemplo.
+                Se trata do tipo mais grave, pois costuma evoluir para metástase, que é quando a doença se prolifera em outras regiões do corpo, entretanto, se descoberto cedo, há uma taxa considerável de cura, podendo chegar a 90% caso seja diagnosticado precocemente.
+            </p>
+            <p>
+                Seu diagnóstico é feito através da regra “ABCDE”:<br>
+                • Assimétrica: Quando a mancha ou pinta tem diferença de formato em sua totalidade;<br>
+                • Bordas irregulares: se elas são dentadas, chanfradas, com sulcos;<br>
+                • Cor: Referente à quando a mancha apresenta diferente tonalidade, não seguindo um mesmo padrão;<br>
+                • Diâmetro: Quando possui um diâmetro superior a 0,5 mm. Não sendo uma regra, pois há melanomas com dimensões inferiores;
+            </p>
+        </div>
+
+        <!-- Linha divisória (opcional) -->
+        <div class="divisoria"></div>
+
+        <!-- Coluna da direita -->
+        <div class="coluna">
+            <h3>Câncer de Pele Não Melanoma</h3>
+            <p>O câncer de pele sem melanoma é o mais comum aqui no Brasil e o que tem mais chance de cura, se for detectado na sua fase inicial. O não melanoma apresenta tumores de diferentes tipos, como o Carcinoma Basocelular e o Carcinoma Epidermoide</p>
+            <p>o Carninoma Basocelular (CBC), é a forma de não melanoma mais comum representando cerca de 80% dos casos e costuma ser menos graves e com maiores chances de cura.  </p>
+            <p>De acordo com o INCA, entre os anos de 2023 e 2025, são esperados um total de aproximadamente 220 mil novos casos, sendo 102 mil casos em pessoas do sexo masculino e 119 mil casos em pessoas do sexo feminino.   </p>
+            <p>Já em relação ao carcinoma espinocelular, pode ter sua origem a partir de feridas crônicas ou alterações ou danos visíveis na pele, e quando comparado ao carcinoma basocelular, ele apresenta maior potencial de metástase (INCA, 2023). </p>
+            <ul>
+                <li>	Pintas irregulares;</li>
+                <li>	Feridas que não cicatrizam;</li>
+                <li>	Manchas avermelhadas ou escurecidas;</li>
+                <li>	Caroços ou nódulos;</li>
+                <li>	Casquinhas ou descamações persistentes.</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+
+
+
+    </main>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+    <!-- cards-->
+
+    <section id="info-cards" class="cards-container">
+  <h2>Você Sabia?</h2>
+  <div class="cards">
+    <div class="card scroll-reveal">
+      <h3>🧠 Você sabia?</h3>
+      <p>O câncer de pele representa cerca de <strong>33% de todos os diagnósticos de câncer no Brasil</strong>, segundo o INCA.</p>
+    </div>
+    <div class="card scroll-reveal">
+      <h3>📊 Estimativa 2023</h3>
+      <p>Foram esperados mais de <strong>220 mil novos casos</strong> de câncer de pele não melanoma no Brasil em 2023.</p>
+    </div>
+    <div class="card scroll-reveal">
+      <h3>🌤️ Radiação UV</h3>
+      <p>A exposição à radiação ultravioleta é o <strong>principal fator de risco</strong> para desenvolver câncer de pele.</p>
+    </div>
+    <div class="card scroll-reveal">
+      <h3>👨‍⚕️ Autoexame da pele</h3>
+      <p>Manchas que <strong>mudam de cor, forma ou tamanho</strong>, coçam ou sangram devem ser avaliadas por um dermatologista.</p>
+    </div>
+  </div>
+</section>
+
+    <!-- Botão que abre o modal -->
+  
+
+<!-- Estrutura do Modal -->
+<div id="myModal" class="modal">
+  <div class="modal-content">
+
+    <span id="closeModalBtn" class="close">&times;</span>
+
+    <div class="modal-flex">
+      <!-- Coluna da esquerda (texto principal) -->
+      <div class="coluna-esquerda">
+        <h2>Você já ouviu falar sobre o Dezembro Laranja?</h2>
+
+        <div class="highlight">
+          <p>O Dezembro Laranja é uma campanha nacional de conscientização sobre o <strong>câncer de pele</strong>, promovida pela <strong>Sociedade Brasileira de Dermatologia (SBD)</strong>.</p>
+        </div>
+
+        <p>Essa iniciativa busca alertar a população sobre a importância do <strong>diagnóstico precoce</strong> e da <strong>prevenção</strong> da doença, incentivando hábitos seguros ao se expor ao sol.</p>
+
+        <p>Durante o mês, instituições promovem ações como:</p>
+        <ul>
+          <li>Distribuição de protetor solar;</li>
+          <li>Campanhas educativas nas redes sociais;</li>
+          <li>Atendimentos dermatológicos gratuitos à população;</li>
+          <li>Divulgação de dados sobre a incidência da doença.</li>
+        </ul>
+
+        <div class="highlight">
+          <p><strong>Atenção:</strong> O câncer de pele é o mais comum no Brasil, mas também o mais evitável.</p>
+        </div>
+
+        <p>Use o Dezembro Laranja como um lembrete para cuidar da sua pele todos os dias!</p>
+      </div>
+
+      <!-- Coluna da direita (marcos históricos) -->
+      <div class="coluna-direita">
+        <h3>📅 Principais Marcos da Campanha</h3>
+        <ul class="timeline">
+          <li><strong>2014 – Início da Campanha:</strong> Lançamento oficial pela SBD para alertar sobre o câncer de pele.</li>
+          <li><strong>2015 – “Se exponha, mas não se queime”:</strong> Foco em proteção solar e mutirões com dermatologistas.</li>
+          <li><strong>2016 – “Câncer de pele é coisa séria”:</strong> Alerta reforçado nas redes e mídia.</li>
+          <li><strong>2018 – Recorde de atendimentos:</strong> Mais de 30 mil pessoas atendidas gratuitamente em um ano.</li>
+          <li><strong>2020 – “Adicione proteção ao seu verão”:</strong> Campanha digital em meio à pandemia.</li>
+          <li><strong>2022 – Diagnóstico precoce:</strong> Destaque para identificação rápida e parcerias com universidades.</li>
+        </ul>
+
+        <p style="margin-top: 20px;"><strong>Cuide da sua pele. Prevenir é sempre melhor do que tratar.</strong></p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!--codigo para buscar geolocalização da pessoa e mostrar a radiação UV em tempo real  -->
+
+<div id="uv-popup" style="
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 15px;
+    border-radius: 8px;
+    width: 250px;
+    text-align: center;
+    background-color: #f0f0f0;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    font-family: Arial, sans-serif;
+    z-index: 1000;
+">
+    <div style="text-align: right;">
+        <button onclick="closePopup()" style="
+            background: none;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+        ">✖</button>
+    </div>
+    <h3 style="margin: 0 0 10px 0;">Índice UV Hoje na Sua Região:</h3>
+    <div id="uv-icon" style="font-size: 50px; margin-bottom: 10px;">☀️</div>
+    <div id="uv-value" style="font-size: 2em; font-weight: bold;">Carregando...</div>
+    <div id="uv-level" style="margin-top: 10px;">...</div>
+</div>
+
+<style>
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.1); }
+        100% { transform: scale(1); }
+    }
+
+    .pulsing {
+        animation: pulse 1s infinite;
+    }
+</style>
+
+<script>
+    function getUvColor(value) {
+        if (value <= 2) return '#4CAF50';        // Baixo (verde)
+        if (value <= 5) return '#FFEB3B';        // Moderado (amarelo)
+        if (value <= 7) return '#FF9800';        // Alto (laranja)
+        if (value <= 10) return '#F44336';       // Muito Alto (vermelho)
+        return '#9C27B0';                        // Extremo (roxo)
+    }
+
+    function getUvLabel(value) {
+        if (value <= 2) return 'Baixo';
+        if (value <= 5) return 'Moderado';
+        if (value <= 7) return 'Alto';
+        if (value <= 10) return 'Muito Alto';
+        return 'Extremo';
+    }
+
+    function getUvIcon(value) {
+        if (value <= 2) return '☀️';       // Sol calmo
+        if (value <= 5) return '⛅';        // Sol entre nuvens
+        if (value <= 7) return '🌤️';       // Sol forte
+        if (value <= 10) return '🌞';       // Sol muito intenso
+        return '⚡';                        // Raio UV extremo
+    }
+
+    function closePopup() {
+        document.getElementById('uv-popup').style.display = 'none';
+    }
+
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(success, error);
+    } else {
+        document.getElementById('uv-value').innerText = "Sem suporte.";
+    }
+
+    function success(position) {
+        const lat = position.coords.latitude;
+        const lon = position.coords.longitude;
+        const apiKey = '3f59fb330add1cfad36119abb1e4d8cb';
+
+        fetch(`https://api.openweathermap.org/data/2.5/uvi?lat=${lat}&lon=${lon}&appid=${apiKey}`)
+            .then(response => response.json())
+            .then(data => {
+                const uvValue = data.value;
+                const color = getUvColor(uvValue);
+                const label = getUvLabel(uvValue);
+                const icon = getUvIcon(uvValue);
+
+                const popup = document.getElementById('uv-popup');
+                const valueDiv = document.getElementById('uv-value');
+                const levelDiv = document.getElementById('uv-level');
+                const iconDiv = document.getElementById('uv-icon');
+
+                valueDiv.innerText = uvValue;
+                levelDiv.innerText = label;
+                iconDiv.innerText = icon;
+
+                popup.style.backgroundColor = color;
+
+                if (uvValue > 7) {
+                    popup.classList.add('pulsing');
+                } else {
+                    popup.classList.remove('pulsing');
+                }
+            })
+            .catch(() => {
+                document.getElementById('uv-value').innerText = "Erro.";
+            });
+    }
+
+    function error() {
+        document.getElementById('uv-value').innerText = "Sem localização.";
+    }
+</script>
+
+<!-- pegar a localização da pessoa -->
+
+<script>
+    function enviarLocalizacao() {
+      const email = document.getElementById('email').value.trim();
+      //const cep = document.getElementById('cep').value.trim(); // 
+
+      if (!email ) {
+        mostrarMensagem('Por favor, preencha todos os campos.', true);
+        return;
+      }
+
+      fetch('/cadastro_email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email, cep: cep })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          mostrarMensagem(data.message, false);
+        } else {
+          mostrarMensagem(data.message, true);
+        }
+      })
+      .catch(() => mostrarMensagem('Erro ao enviar dados. Tente novamente.', true));
+    }
+
+    function mostrarMensagem(texto, isError) {
+      const div = document.getElementById('mensagem');
+      div.textContent = texto;
+      div.className = isError ? 'error' : 'msg';
+    }
+
+</script>
+
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <div class="flash-message">
+      {% for message in messages %}
+        <p>{{ message }}</p>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
+
+
+<script src="/static/script.js"></script>
+
+
+
+<!-- =========================
+     Seção: Gráficos Informativos
+     ========================= -->
+<section id="graficos" class="graficos-tcc" style="margin:48px 0;">
+  <h2 style="margin-bottom:16px;">Gráficos Informativos</h2>
+
+  <article class="grafico-bloco">
+    <h3>Histórico de Incidências (2000–2023)</h3>
+    <div class="chart-wrap">
+      <canvas id="graficoHistorico"></canvas>
+    </div>
+  </article>
+
+  <article class="grafico-bloco">
+    <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+      <h3 style="margin:0;">Modelo Preditivo até 2033</h3>
+      <label for="modelo"><strong>Modelo:</strong></label>
+      <select id="modelo">
+        <option>ARIMA</option>
+        <option>ETS</option>
+      </select>
+    </div>
+    <div class="chart-wrap" style="margin-top:12px;">
+      <canvas id="graficoPreditivo"></canvas>
+    </div>
+  </article>
+
+  <article class="grafico-bloco">
+    <h3>Correlação: Índice UV × Casos</h3>
+    <div class="chart-wrap">
+      <canvas id="graficoCorrelacao"></canvas>
+    </div>
+  </article>
+</section>
+
+<script src="{{ url_for('static', filename='grafico.js') }}?v=2"></script>
+
+<!-- cuidados diarios-->
+
+<section class="secao-cuidados-quiz">
+  
+  <div class="cuidados-container">
+    <!-- Cuidados Diários -->
+    <section id="prevencao" class="cuidados">
+      <div class="diarios">
+        <h2>Cuidados Diários Contra o Câncer de Pele</h2>
+      </div>
+      <ul class="lista-cuidados">
+        <li class="prevencao">
+          <strong>Evite o sol entre 10h e 16h.</strong> É nesse período que os raios UV atingem níveis mais perigosos.
+        </li>
+        <li class="prevencao">
+          <strong>Use protetor solar com FPS 30 ou superior.</strong> Aplique 30 minutos antes e reaplique.
+        </li>
+        <li class="prevencao">
+          <strong>Vista-se de forma consciente.</strong> Roupas longas e escuras ajudam a proteger.
+        </li>
+        <li class="prevencao">
+          <strong>Busque sombra sempre que possível.</strong> Mesmo em dias nublados, os raios UV causam danos.
+        </li>
+        <li class="prevencao">
+          <strong>Fique atenta aos sinais na pele.</strong> Pintas e manchas devem ser avaliadas por dermatologistas.
+        </li>
+        <li class="prevencao">
+          <strong>Não negligencie o inverno.</strong> 80% dos raios UV atravessam as nuvens.
+        </li>
+      </ul>
+    </section>
+  </div>
+
+  <!-- Quiz -->
+  <section id="quiz" class="quiz-container">
+    <h2>Teste seus conhecimentos sobre o Câncer de Pele</h2>
+
+    <!-- Barra de progresso -->
+    <div class="quiz-progress">
+      <div class="progress-bar" id="barra-progresso"></div>
+    </div>
+
+    <!-- Onde a pergunta será exibida -->
+    <div id="pergunta-container"></div>
+
+    <!-- Botão de próxima pergunta -->
+    <button id="botao-proximo" class="botao-menu">Próxima</button>
+
+    <!-- Resultado final -->
+    <div id="resultado-quiz"></div>
+  </section>
+</section>
+
+
+<section id="custos-pele" class="custos-pele">
+  <div class="container-custos">
+    <h2>Quanto custa tratar o câncer de pele?</h2>
+    <p class="lead">
+      Os valores abaixo são referências gerais e podem variar por tipo, estágio, conduta e atualização de tabelas.
+    </p>
+
+    <ul class="custos-lista">
+      <li>
+        <strong>Gastos de internações 2024</strong>
+  Em 2024, o SUS destinou aproximadamente <strong>R$ 61,7 milhões</strong> apenas para internações relacionadas a câncer de pele não melanoma,
+    considerando todos os estados brasileiros.
+  <a href="https://anadem.org.br/2025/04/08/internacoes-pelos-3-tipos-de-cancer-mais-frequentes-custaram-r-620-mil-em-2024/" target="_blank" rel="noopener">ANADEM – Relatório de custos hospitalares</a>.
+</li>
+      <li>
+        <strong>Melanoma inicial:</strong> cirurgia + seguimento. Estágios avançados concentram a maior parte do gasto total.
+      </li>
+      <li>
+        <strong>Melanoma avançado:</strong> pode requerer imunoterapia (pembrolizumabe/nivolumabe) e/ou terapias-alvo,
+        com alto impacto orçamentário.
+      </li>
+      <li>
+        <strong>Custos hospitalares observados (amostras):</strong> levantamentos indicam milhões de reais somados em períodos de 1–2 anos;
+        não é custo por paciente.
+      </li>
+    </ul>
+
+    <div class="custos-cards">
+      <article class="card-custo">
+        <h3>Custo por sessão: terapia fotodinâmica vs cirurgia</h3>
+  <p>
+    A terapia fotodinâmica para carcinoma basocelular superficial ou nodular tem custo estimado entre
+    <strong>R$ 779,05 e R$ 2.567,25</strong> por sessão, enquanto a excisão cirúrgica apresenta custo médio de
+    <strong>R$ 576,88</strong>.
+  </p>
+  <p class="referencia">
+    Fonte: <a href="https://www.gov.br/conitec/pt-br/midias/relatorios/2023/procedimento-terapia-fotodinamica-para-tratamento-de-carcinoma-basocelular-superficial-e-nodular" target="_blank" rel="noopener">
+      CONITEC – Relatório de custo-efetividade (2023)
+    </a>
+  </p>
+      </article>
+
+      <article class="card-custo">
+        <h3>Reajuste de R$ 47 milhões</h3>
+  <p>Em 2022, o Governo Federal reajustou em R$ 47 milhões os valores para tratamento quimioterápico do câncer de pele no SUS.</p>
+  <p class="referencia">
+    Fonte: <a href="https://www.gov.br/saude/pt-br/assuntos/noticias/2022/marco/governo-federal-reajusta-em-r-47-milhoes-os-valores-para-tratamento-quimioterapico-do-cancer-de-pele" target="_blank" rel="noopener">Ministério da Saúde</a>
+  </p>
+      </article>
+
+      <article class="card-custo">
+       <h3>Projeção de gastos futuros:</h3>
+  <p>O INCA estima que, em 2040, o SUS poderá gastar cerca de <strong>R$ 78,4 bilhões</strong> com o tratamento de câncer, considerando todos os tipos da doença.</p>
+  <p class="referencia">
+    Fonte: <a href="https://agenciabrasil.ebc.com.br/saude/noticia/2024-02/sus-pode-gastar-r-784-bi-em-2040-com-tratamento-de-cancer-diz-inca" target="_blank" rel="noopener">Agência Brasil</a>
+  </p>
+      </article>
+
+      <article class="card-custo">
+        <h3>Custos hospitalares observados</h3>
+        <p>Levantamento (2023–2024) indicou R$ 4,6 milhões somados em internações por melanoma (amostra mista).</p>
+        <p class="referencia">
+          Fonte: <a href="https://agenciabrasil.ebc.com.br/saude/noticia/2024-12/cancer-de-pele-gera-r-46-mi-em-custos-hospitalares-em-quase-2-anos" target="_blank" rel="noopener">Agência Brasil</a>
+        </p>
+      </article>
+    </div>
+
+    <div class="nota">
+      <p><strong>Atenção:</strong> valores são aproximados e podem mudar. Consulte seu serviço (SUS/convênio) para orçamento detalhado do seu caso.</p>
+    </div>
+
+    <details class="fontes">
+      <summary>Outras Informações</summary>
+      <ul>
+        <li>Observatório de Oncologia – Custo do câncer no SUS (visão 2022: R$ 3,9–4,0 bi; distribuição ambulatorial vs. hospitalar). <a href="https://observatoriodeoncologia.com.br/estudos/tratamento-em-oncologia/2024/custo-do-cancer-no-sus/" target="_blank" rel="noopener">Link</a></li>
+
+    <li>Observatório de Oncologia – Radioterapia no SUS (2018–2023): evolução do gasto total e <em>custo médio por procedimento</em>. <a href="https://observatoriodeoncologia.com.br/estudos/tratamento-em-oncologia/2024/panorama-da-radioterapia-no-brasil-entre-2018-e-2023/" target="_blank" rel="noopener">Link</a></li>
+
+    <li>CONITEC – Melanoma: terapias-alvo/imunoterapia (análise de <em>impacto orçamentário</em> em 5 anos com cenários de centenas de milhões a bilhões). <a href="https://www.gov.br/conitec/pt-br/midias/relatorios/2020/relatorio_541_terapiaalvo_melanoma_final_2020.pdf" target="_blank" rel="noopener">Link</a></li>
+
+    <li>Painel Oncologia – DATASUS (consultas interativas de produção e gastos oncológicos por UF/ano/procedimento). <a href="https://tabnet.datasus.gov.br/cgi/dhdat.exe?PAINEL_ONCO/PAINEL_ONCOLOGIABR.def=" target="_blank" rel="noopener">Link</a></li>
+
+    <li>Fiocruz/INCA – “Quanto custa o câncer?” (síntese de gastos federais em saúde e oncologia; contexto para comparação). <a href="https://fiocruz.br/noticia/2023/06/fiocruz-sela-parceria-com-inca-e-divulga-estudo-sobre-custos-do-cancer-no-sus" target="_blank" rel="noopener">Link</a></li>
+      </ul>
+    </details>
+  </div>
+</section>
+
+<!-- =========================
+     Seção: Buscar Dermatologista/Hospital Próximo
+     ========================= -->
+<section id="busca-derm" class="busca-derm">
+  <h2>Está com dúvida dos seus sintomas?</h2>
+  <p>Encontre um <strong>dermatologista</strong> ou <strong>hospital</strong> mais próximo e marque sua consulta.</p>
+
+  
+  <div class="busca-derm__locfix">
+    <input id="enderecoBusca" type="text" placeholder="Digite endereço/bairro/cidade">
+    <button id="btnEndereco" type="button">Usar endereço</button>
+    <button id="btnUsarGps" type="button">Usar minha localização</button>
+    <small>Se a posição estiver errada, arraste o pino no mapa ou clique no mapa para definir.</small>
+  </div>
+
+  <!-- botões -->
+  <div class="busca-derm__controls">
+    <label>Raio:
+      <select id="radiusKm">
+        <option value="3">3 km</option>
+        <option value="5" selected>5 km</option>
+        <option value="10">10 km</option>
+        <option value="20">20 km</option>
+      </select>
+    </label>
+
+    <label>Tipo:
+      <select id="tipoLocal">
+        <option value="all" selected>Todos</option>
+        <option value="hospital">Hospitais</option>
+        <option value="clinic">Clínicas</option>
+       
+      </select>
+    </label>
+
+     <label>Gestão:
+  <select id="filtroGestao">
+    <option value="all" selected>Todos</option>
+    <option value="public">Públicos</option>
+    <option value="private">Privados</option>
+  </select>
+</label>
+
+
+    <button id="btnBuscar" type="button">Encontrar próximos</button>
+  </div>
+
+
+  <!-- Mapa + lista de resultados -->
+  <div id="mapDerm" class="busca-derm__map"></div>
+  <ul id="listaDerm" class="busca-derm__lista"></ul>
+
+  <p class="busca-derm__nota">
+    *Resultados públicos do OpenStreetMap (podem não refletir 100% da rede real). Confirme telefone/agenda antes de ir.
+  </p>
+</section>
+
+<!-- ======== Dependências ======== -->
+
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+  crossorigin=""
+/>
+
+<script
+  src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+  integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+  crossorigin=""
+></script>
+
+
+<script src="busca-derm.js"></script>
+<script src="{{ url_for('static', filename='/acessibilidade.js') }}"></script>
+
+
+<!-- acessibilidade em libras-->
+<div vw class="enabled">
+  <div vw-access-button class="active"></div>
+  <div vw-plugin-wrapper>
+    <div class="vw-plugin-top-wrapper"></div>
+  </div>
+</div>
+<script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+<script> new window.VLibras.Widget('https://vlibras.gov.br/app'); </script>
+
+</body>
+</html>

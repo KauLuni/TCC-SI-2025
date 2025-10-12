@@ -1,0 +1,44 @@
+<mjml>
+  <mj-head>
+    <mj-title>Alerta UV</mj-title>
+    <mj-preview>Seu alerta diário sobre a radiação solar</mj-preview>
+    <mj-attributes>
+      <mj-all font-family="Arial, sans-serif" />
+      <mj-button background-color="#f97316" color="white" border-radius="20px" padding="10px 16px" font-weight="bold" />
+    </mj-attributes>
+  </mj-head>
+  <mj-body background-color="#fff6ed">
+    <mj-section padding="20px">
+      <mj-column background-color="#ffffff" border="2px solid #f97316" border-radius="12px" padding="20px">
+
+        <mj-text font-size="20px" color="#f97316" font-weight="bold">
+          ☀️ Alerta UV - Sua região
+        </mj-text>
+
+        <mj-text font-size="16px" color="#333">
+          <strong>Índice UV de hoje:</strong> {{ uv }}
+        </mj-text>
+
+        <!-- ✅ Bloco corrigido com |safe -->
+        <mj-text 
+          font-size="15px" 
+          color="#333" 
+          padding="12px" 
+          background-color="#f8f8f8" 
+          border-radius="8px" 
+          border-left="5px solid #f97316">
+          {{ nivel|safe }}
+        </mj-text>
+
+        <mj-button href="{{ descadastro_link }}">
+          Descadastrar
+        </mj-button>
+
+        <mj-text font-size="14px" color="#777">
+          Se não quiser mais receber nossos alertas, clique no botão acima para sair da lista.
+        </mj-text>
+
+      </mj-column>
+    </mj-section>
+  </mj-body>
+</mjml>

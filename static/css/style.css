@@ -1,0 +1,1203 @@
+
+/* === HEADER COM FORMULÁRIO E MENU ALINHADOS NA MESMA LINHA === */
+header {
+  background-color: #f97316;
+  padding: 1em 2em;
+}
+
+
+
+.topo-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+/* Agrupamento do campo de e-mail e botão */
+.form-navegacao {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1;
+  min-width: 280px;
+}
+
+/* Campo de e-mail */
+input[type="email"] {
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  width: 240px;
+  font-family: Arial, sans-serif;
+}
+
+/* Botão igual aos do menu */
+.botao-menu {
+  background-color: #f78c2b;
+  color: white;
+  font-weight: bold;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: 0.3s ease;
+  font-family: Arial, sans-serif;
+}
+
+.botao-menu:hover {
+  transform: translateY(-2px);
+  background-color: #ffa346;
+}
+
+/* Texto explicativo deve vir abaixo da caixa */
+.form-explicacao {
+  flex-basis: 100%;
+  font-size: 0.95rem;
+  color: white;
+  font-family: Arial, sans-serif;
+  margin-top: 0.5rem;
+  margin-left: 0.2rem;
+}
+
+.destaque-amarelo {
+  color: #fcff33;
+  font-weight: bold;
+}
+
+/* Menu de navegação */
+.menu-links {
+  display: flex;
+  gap: 1rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menu-links a {
+  background-color: #f78c2b;
+  color: white;
+  font-weight: bold;
+  padding: 10px 15px;
+  border-radius: 8px;
+  text-decoration: none;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  transition: 0.3s ease;
+  font-family: Arial, sans-serif;
+}
+
+.menu-links a:hover {
+  background-color: #ffa346;
+  transform: translateY(-2px);
+}
+
+/* RESPONSIVO */
+@media (max-width: 768px) {
+  .topo-flex {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .menu-links {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .form-navegacao {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .form-explicacao {
+    margin-left: 0;
+  }
+}
+
+
+
+/* === INTRO COM TEXTO TOTALMENTE ALINHADO NA ESQUERDA === */
+.intro {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 0rem;
+  padding: 4em 2em;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.intro .texto {
+  flex: 1;
+  min-width: 300px;
+  max-width: 500px;
+  margin-left: 0;
+  padding-left: 0;
+}
+
+.intro .texto h1 {
+  color: #f97316;
+  font-size: 1.75rem;
+  line-height: 1.3;
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+  margin: 0 0 1rem 0;
+  padding: 0;
+}
+
+.intro .texto p {
+  margin-bottom: 1rem;
+  line-height: 1.6;
+  font-family: Arial, sans-serif;
+  text-align: left;
+  margin-left: 0;
+  padding-left: 0;
+}
+
+.botao {
+  font-size: 0.9rem;       /* ← diminui o texto */
+  padding: 0.4em 0.8em;     /* ← reduz o espaço interno */
+  border: 2px solid #f97316;
+  color: #f97316;
+  text-decoration: none;
+  border-radius: 20px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  margin-left: 0;
+}
+
+.botao:hover {
+  transform: translateY(-5px);
+  background-color: #f97316;
+  color: white;
+}
+
+/* IMAGEM COM TEXTO ESCURECIDO POR CIMA */
+.imagem-overlay {
+  position: relative;
+  flex: 1;
+  max-width: 500px;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.imagem-overlay img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  border-radius: 16px;
+}
+
+.texto-overlay {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0,0,0,0.55);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1.5rem;
+  text-align: center;
+  font-size: 1rem;
+  line-height: 1.6;
+  font-family: Arial, sans-serif;
+  border-radius: 16px;
+}
+
+/* RESPONSIVO */
+@media (max-width: 768px) {
+  .intro {
+    flex-direction: column;
+    padding: 2em 1em;
+  }
+
+  .intro .texto {
+    max-width: 100%;
+    text-align: center;
+  }
+
+  .imagem-overlay {
+    max-width: 100%;
+  }
+}
+
+
+
+/* RESET E BASE */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f6ef;
+    color: #333;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+/* INTRO */
+.intro {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 2em 1em;
+   /* background: #f8f8f8; */
+    gap: 2rem;
+    align-items: center;
+    text-align: left;
+}
+
+.intro .texto {
+    flex: 1;
+    min-width: 280px;
+    padding-right: 1em;
+}
+
+.intro .texto .mini_introducao {
+    display: inline-block;
+    padding: 0.5em 1em;
+    color: #f97316;
+    text-decoration: none;
+}
+
+.botao {
+    display: inline-block;
+    padding: 0.5em 1em;
+    border: 2px solid #f97316;
+    color: #f97316;
+    text-decoration: none;
+    border-radius: 20px;
+    margin-top: 1em;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.botao:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+/* IMAGEM COM TEXTO SOBREPOSTO FIXO */
+.imagem-overlay {
+    position: relative;
+    display: block;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.imagem-overlay img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    border-radius: 16px;
+}
+
+.texto-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.55);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1.5rem;
+    text-align: center;
+    font-size: 1rem;
+    line-height: 1.6;
+    font-family: Arial, sans-serif;
+    border-radius: 16px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    box-sizing: border-box;              /* ← importante para o padding não ultrapassar */
+    overflow: auto;                      /* ← permite rolagem se o texto for maior */
+    word-wrap: break-word;              /* ← quebra o texto se for longo */
+}
+
+.imagem-overlay:hover .texto-overlay {
+  opacity: 1;
+}
+
+/* DESTAQUES */
+.destaques {
+    background-color: 	#fff8e6; 
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    padding: 2em 1.5em; /* ↓ reduzido */
+    text-align: center;
+    max-width: 1200px;
+    margin: 40px auto;  /* ↓ reduzido */
+}
+
+
+.destaques .topicos {
+    color: #f9f9f9;
+    font-size: 1.5rem;
+    margin-bottom: 1em;
+    font-weight: bold;
+}
+
+.cards {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 2em;
+    margin-top: 1em;
+}
+
+.card {
+    background: white;
+    padding: 1.2em;
+    border-radius: 10px;
+    width: 220px;
+    box-shadow: 0 0 5px #f97316;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+    line-height: 1.6;
+    font-family: Arial, sans-serif;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+
+/* IMPACTOS DO SOL */
+.impactos {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 40px;
+    padding: 60px 20px;
+    /*background-color: #f9f9f9; /* ← novo */
+    border-radius: 16px;       /* ← novo */
+    /* box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* ← novo */
+    color: #333;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.impactos .sol {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.impactos .sol h2 {
+    color: #f97316;
+    font-size: 2rem;
+    margin-bottom: 0;
+}
+
+.impactos > div:not(.imagem-rio):not(.sol) {
+    flex: 1 1 500px;
+    max-width: 600px;
+    text-align: justify;
+    line-height: 1.6;
+    font-size: 1rem;
+}
+
+.imagem-rio {
+    flex: 1 1 400px;
+    max-width: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.imagem-rio img {
+    width: 100%;
+    height: auto;
+    border-radius: 16px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+}
+
+.cuidados {
+  /* background-color: #f9f9f9; */
+  padding: 3em 2em;
+  border-radius: 16px;
+  /* box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); */
+  max-width: 1280px;
+  margin: 60px auto;
+  text-align: center;
+}
+
+.cuidados .diarios h2 {
+  text-align: center;
+  color: #f97316;
+  font-size: 2rem;
+  margin-bottom: 1.5em;
+}
+
+.lista-cuidados li {
+  margin-bottom: 20px;
+  line-height: 1.6;
+  padding: 16px 20px;
+}
+
+.secao-cuidados-quiz {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 60px;              /* mais espaço entre blocos */
+  max-width: 1280px;
+  margin: 60px auto;
+  padding: 20px;
+}
+
+/* Responsivo: empilhar blocos no mobile */
+@media (max-width: 768px) {
+  .secao-cuidados-quiz {
+    flex-direction: column;
+    gap: 30px;
+    align-items: center;
+  }
+
+  .cuidados, .quiz-container {
+    width: 100%;
+    max-width: 600px;
+  }
+}
+
+/* DIFERENÇA ENTRE CÂNCERES */
+.diferenca {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+  align-items: flex-start;
+  padding: 40px 50px;                
+  flex-wrap: wrap;
+  margin: 40px auto;
+  background-color: #ffffff;       
+  color: #333;
+  width: 100%;
+  max-width: 1200px;
+
+  border-radius: 20px;               
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08); 
+  border: 1px solid rgba(0, 0, 0, 0.08);      
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 40px;
+  width: 100%;
+}
+
+.coluna {
+  flex: 1;
+  min-width: 300px;
+  max-width: 550px;
+}
+
+.divisoria {
+  width: 2px;
+  background-color: rgba(0, 0, 0, 0.2); 
+  margin: 0 20px;
+  border-radius: 10px;                 
+}
+
+.coluna h2, 
+.coluna h3 {
+  color: #f97316;
+  margin-top: 0;
+}
+
+/* responsivo */
+@media (max-width: 768px) {
+  .diferenca {
+    flex-direction: column;
+    padding: 30px 20px;
+  }
+
+  .divisoria {
+    display: none; 
+  }
+}
+
+/* MODAL */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: #fffbea;
+  border-radius: 16px;
+  padding: 2em;
+  width: 90%;
+  max-width: 900px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+  position: relative;
+  animation: fadeInModal 0.4s ease;
+  font-family: 'Poppins', sans-serif;
+}
+
+@keyframes fadeInModal {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.modal-content h2 {
+  color: #f97316;
+  font-size: 2rem;
+  margin-top: 0;
+  text-align: center;
+}
+
+.modal-content p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #333;
+  margin-bottom: 1em;
+}
+
+.modal-content .highlight {
+  background-color: #fff0d9;
+  padding: 0.6em;
+  border-left: 4px solid #f97316;
+  border-radius: 8px;
+  margin: 1em 0;
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 28px;
+  color: #f97316;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.close:hover {
+  transform: scale(1.2);
+}
+
+.coluna-esquerda,
+.coluna-direita {
+  flex: 1;
+  min-width: 300px;
+}
+
+.timeline {
+  padding-left: 20px;
+  text-align: left;
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .modal-flex {
+    flex-direction: column;
+  }
+}
+
+.modal-flex {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2em;
+  margin-top: 1.5em;
+}
+/* cards */
+
+.cards-container {
+  background-color: #fffbea;
+  padding: 60px 20px;
+  text-align: center;
+  margin-top: 50px;
+}
+
+.cards-container h2 {
+  font-size: 2rem;
+  color: #f97316;
+  margin-bottom: 40px;
+}
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+}
+
+.card {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  max-width: 300px;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.card h3 {
+  color: #f97316;
+  margin-bottom: 10px;
+}
+
+.card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+  .cards {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+/* quiz*/
+
+.quiz-container {
+  background-color: #fffbea;
+  padding: 3em 2em;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  max-width: 800px;
+  margin: 60px auto;
+  text-align: left;
+  font-family: Arial, sans-serif;
+}
+
+.quiz-container h2 {
+  text-align: center;
+  color: #f97316;
+  margin-bottom: 2rem;
+  font-size: 1.8rem;
+}
+
+.pergunta {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  border-radius: 16px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+  transition: all 0.3s ease;
+}
+
+.pergunta p {
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+
+.pergunta label {
+  display: block;
+  margin-bottom: 10px;
+  cursor: pointer;
+  padding-left: 5px;
+  transition: background 0.2s ease;
+}
+
+.pergunta input[type="radio"] {
+  margin-right: 8px;
+}
+
+#botao-proximo {
+  display: block;
+  margin: 2rem auto 0;
+  padding: 12px 20px;
+  font-size: 1rem;
+  background-color: #f78c2b;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#botao-proximo:hover {
+  background-color: #ffa346;
+  transform: translateY(-2px);
+}
+
+#resultado-quiz {
+  margin-top: 2rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-align: center;
+  color: #f97316;
+}
+
+/* Barra de progresso */
+.quiz-progress {
+  background-color: #ddd;
+  border-radius: 10px;
+  height: 15px;
+  width: 100%;
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  background-color: #f97316;
+  height: 100%;
+  width: 0%;
+  transition: width 0.4s ease;
+}
+
+.secao-cuidados-quiz {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 40px; /* espaço entre cuidados e quiz */
+  margin: 40px auto;
+  max-width: 1200px; /* largura máxima do container */
+  
+}
+
+.cuidados {
+  flex: 0 0 600px; /* largura fixa */
+
+}
+
+.lista-cuidados {
+  list-style: none;
+  padding: 0;
+  
+}
+
+.lista-cuidados li {
+  background: white;
+  border: 4px solid orange;
+  border-radius: 20px;
+  padding: 15px;
+  margin-bottom: 15px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+ 
+}
+
+.cuidados-container {
+  margin-top: -80px; /* Ajuste esse valor para subir mais ou menos */
+}
+
+
+.quiz-container {
+  flex: 0 0 350px; /* largura do quiz */
+  background: #fff8f0;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* === Seção de Custos: câncer de pele === */
+.custos-pele {
+  background: #0b0b0b; /* mantém o padrão escuro do seu site */
+  color: #f3f3f3;
+  padding: 64px 16px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+.custos-pele .container-custos {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.custos-pele h2 {
+  font-size: clamp(1.6rem, 1.3rem + 1.2vw, 2.2rem);
+  margin-bottom: 12px;
+}
+.custos-pele .lead {
+  color: #cfcfcf;
+  margin-bottom: 20px;
+}
+.custos-pele .custos-lista {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 24px 0;
+}
+.custos-pele .custos-lista li {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+  padding: 14px 16px;
+  margin-bottom: 12px;
+}
+.custos-pele a { color: #8ad6ff; text-decoration: underline; }
+.custos-pele a:hover { opacity: 0.9; }
+
+.custos-pele .custos-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 14px;
+  margin-top: 8px;
+}
+.custos-pele .card-custo {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px;
+  padding: 16px;
+}
+.custos-pele .card-custo h3 {
+  font-size: 1.05rem;
+  margin: 0 0 6px 0;
+}
+.custos-pele .referencia {
+  font-size: 0.92rem;
+  color: #c9c9c9;
+  margin-top: 8px;
+}
+
+.custos-pele .nota {
+  margin-top: 18px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: rgba(255,200,0,0.08);
+  border: 1px solid rgba(255,200,0,0.3);
+}
+.custos-pele details.fontes {
+  margin-top: 12px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  padding: 10px 12px;
+}
+.custos-pele details.fontes summary {
+  cursor: pointer;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.custos-pele details.fontes ul {
+  margin: 8px 0 0 16px;
+}
+.custos-pele details.fontes li {
+  margin-bottom: 6px;
+}
+
+/* busca de dermatologista */
+
+.busca-derm {
+  padding: 48px 16px;
+  background: #0b0b0b;
+  color: #f3f3f3;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+
+.busca-derm h2 {
+  margin: 0 0 6px;
+  font-size: clamp(1.4rem, 1.1rem + 1vw, 2rem);
+}
+
+.busca-derm p {
+  color: #cfcfcf;
+  margin: 0 0 14px;
+}
+
+.busca-derm__controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.busca-derm__controls select,
+.busca-derm__controls button {
+  background: #1a1a1a;
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 10px;
+  padding: 8px 10px;
+}
+
+.busca-derm__controls button {
+  cursor: pointer;
+}
+
+.busca-derm__map {
+  width: 100%;
+  height: 420px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.busca-derm__lista {
+  list-style: none;
+  padding: 0;
+  margin: 14px 0 0;
+  display: grid;
+  gap: 10px;
+}
+
+.busca-derm__item {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  padding: 10px 12px;
+}
+
+.busca-derm__title {
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.busca-derm__meta {
+  color: #c9c9c9;
+  font-size: 0.95rem;
+  margin-bottom: 6px;
+}
+
+.busca-derm__links a {
+  color: #8ad6ff;
+  margin-right: 10px;
+  text-decoration: underline;
+}
+
+.busca-derm__nota {
+  margin-top: 10px;
+  font-size: 0.9rem;
+  color: #d7d7d7;
+}
+
+@media (max-width: 640px) {
+  .busca-derm__map {
+    height: 340px;
+  }
+}
+
+.busca-derm__locfix {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  margin: 10px 0 12px;
+}
+.busca-derm__locfix input {
+  flex: 1 1 260px;
+  background: #1a1a1a;
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 10px;
+  padding: 8px 10px;
+}
+.busca-derm__locfix button {
+  background: #1a1a1a;
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 10px;
+  padding: 8px 10px;
+  cursor: pointer;
+}
+.busca-derm__locfix small {
+  color: #c9c9c9;
+  width: 100%;
+}
+
+/* Controle novo */
+#filtroGestao {
+  background: #1a1a1a;
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 10px;
+  padding: 8px 10px;
+}
+
+/* Limita a largura e centraliza todo o conteúdo da seção */
+.busca-derm > * {
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Mais respiro entre controles e mapa */
+.busca-derm__controls {
+  margin-bottom: 16px;
+}
+
+/* Opcional: ajuste para telas muito grandes */
+@media (min-width: 1400px) {
+  .busca-derm > * { max-width: 1280px; }
+  .busca-derm__map { height: 460px; }
+}
+
+/* TÍTULO + PARÁGRAFO da seção "busca-derm" centralizados com a mesma largura */
+.busca-derm h2,
+.busca-derm p {
+  max-width: 1280px;   /* mesma largura alvo dos cards/mapa */
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 8px;   /* pequena “gutter” interna */
+  padding-right: 8px;
+}
+
+/* Badge de gestão (público/privado/indefinido) */
+.badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  border: 1px solid transparent;
+  margin-left: 8px;
+  white-space: nowrap;
+}
+.badge-public {
+  color: #a7f3d0; /* mint claro */
+  background: rgba(16,185,129,0.12);
+  border-color: rgba(16,185,129,0.35);
+}
+.badge-private {
+  color: #c7b7ff; /* lilás claro */
+  background: rgba(139,92,246,0.12);
+  border-color: rgba(139,92,246,0.35);
+}
+.badge-unknown {
+  color: #e5e7eb;
+  background: rgba(255,255,255,0.06);
+  border-color: rgba(255,255,255,0.18);
+}
+
+/*grafico */
+
+/* ====== GRÁFICOS – 1 coluna, largura grande ====== */
+.graficos-tcc {
+  background: #fffbea;
+  padding: 28px 16px !important;
+  margin: 40px 0 !important;
+  display: flex;                 /* empilha verticalmente */
+  flex-direction: column;
+  align-items: center;           /* centraliza os cards */
+  gap: 28px;
+  scroll-margin-top: 90px;
+}
+
+/* título */
+.graficos-tcc > h2 {
+  color: #f97316;
+  text-align: center;
+  font-size: clamp(1.6rem, 1.2rem + 1vw, 2.2rem);
+  margin: 0 0 8px 0 !important;
+}
+
+/* cada gráfico como “card” largo */
+.grafico-bloco {
+  width: min(1200px, 92vw);      /* grande no desktop, responsivo no mobile */
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0,0,0,.12);
+  padding: 16px 22px !important;
+  margin: 0 !important;
+  border-left: 6px solid #f17c2c;
+  border-top: 6px solid #f17c2c;
+}
+
+/* títulos e controles */
+.grafico-bloco h3 {
+  color: #f97316;
+  margin: 0 0 8px 0 !important;
+  font-weight: 700;
+  font-size: 1.15rem;
+}
+.grafico-bloco label { color:#333; }
+.grafico-bloco select {
+  background:#f78c2b; color:#fff; font-weight:700;
+  padding:6px 10px; border:0; border-radius:8px;
+  box-shadow:0 4px 8px rgba(0,0,0,.2); cursor:pointer;
+}
+
+/* –– controle de tamanho do gráfico –– */
+/* opção A (recomendada): usar wrapper .chart-wrap no HTML */
+.grafico-bloco .chart-wrap {
+  position: relative;
+  width: 100%;
+  height: 420px;                 /* ajuste a altura desejada */
+}
+.grafico-bloco .chart-wrap canvas {
+  position: absolute; inset: 0;
+  width: 100% !important; height: 100% !important;
+  display: block;
+}
+
+/* responsividade da altura */
+@media (max-width: 768px) { .grafico-bloco .chart-wrap { height: 320px; } }
+@media (min-width: 1400px){ .grafico-bloco .chart-wrap { height: 460px; } }
+
+#debug-graficos { display:none !important; }
+
+/* acessibilidade */
+
+/* (Opcional) Skip link — só deixe se você tem <a class="skip-link"> no HTML */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: auto;
+  width: 1px; height: 1px;
+  overflow: hidden;
+}
+.skip-link:focus {
+  position: fixed;
+  left: 16px; top: 16px;
+  width: auto; height: auto;
+  padding: 8px 12px;
+  background: #000; color: #fff;
+  z-index: 10000;
+  border-radius: 6px;
+}
+
+/* Barra de acessibilidade (A- / A+) */
+.acess-toolbar {
+  position: fixed;
+  bottom: 16px; left: 16px;
+  display: flex; gap: 8px;
+  background: #fff;
+  border: 1px solid #ddd;
+  box-shadow: 0 2px 10px rgba(0,0,0,.1);
+  padding: 8px 10px;
+  border-radius: 10px;
+  z-index: 9999;
+}
+.acc-btn {
+  border: 1px solid #ccc;
+  background: #f7f7f7;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font: inherit;
+  line-height: 1;
+  cursor: pointer;
+}
+.acc-btn:hover { background: #efefef; }
+.acc-btn:focus { outline: 2px solid #000; outline-offset: 2px; }
+
+/* Responsivo: centraliza a barrinha no mobile */
+@media (max-width: 480px) {
+  .acess-toolbar {
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 10px;
+  }
+}
