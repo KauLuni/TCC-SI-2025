@@ -1,4 +1,4 @@
-# Aplicação TCC - Câncer de Pele e Aquecimento Global
+# Aplicação TCC - A Incidência do Câncer de Pele Correlacionado com o aumento do Aquecimento Global
 
 Este repositório contém a aplicação prática do meu Trabalho de Conclusão de Curso (TCC) do curso de **Sistemas de Informação (2025, UNIP - Paraíso)**.  
 O tema do trabalho é: **"A Relação entre o Câncer de Pele e o Aumento do Aquecimento Global: A Incidência do Câncer de Pele como Reflexo da Intensificação dos Raios UV"**.
