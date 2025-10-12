@@ -20,7 +20,6 @@ Esses arquivos foram então importados para o MySQL, servindo de base para a apl
 data/
 Armazena os arquivos CSV resultantes do pré-processamento realizado em R.
 Esses arquivos representam os dados já limpos e prontos para serem carregados no banco de dados da aplicação.
-Caso os arquivos completos não sejam incluídos no repositório por questões de tamanho, essa pasta pode conter versões reduzidas de exemplo e um arquivo de documentação descrevendo as fontes e o formato dos dados originais.
 
 
 
