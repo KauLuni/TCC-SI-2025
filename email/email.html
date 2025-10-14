@@ -45,7 +45,7 @@
   <body style="word-spacing:normal;background-color:#fff6ed;">
     <!-- Preheader (preview) -->
     <div style="display:none;font-size:1px;color:#ffffff;line-height:1px;max-height:0px;max-width:0px;opacity:0;overflow:hidden;">
-      UV máximo de hoje: {{ uv_max if uv_max is not none else 'Indisponível' }}{% if uv_now is not none %} | Agora: {{ uv_now }}{% endif %}{% if regiao %} — {{ regiao }}{% endif %}
+      {{ (('UV máximo de hoje: ' ~ (uv_max if uv_max is not none else 'Indisponível')) ~ ((' | Agora: ' ~ uv_now)|string if uv_now is not none else '')) ~ ((' — ' ~ regiao) if regiao else '') | e }}
     </div>
 
     <div style="background-color:#fff6ed;" lang="pt-BR" dir="auto">
@@ -67,7 +67,7 @@
                               <tr>
                                 <td align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;">
                                   <div style="font-family:Arial, sans-serif;font-size:20px;font-weight:bold;line-height:1;text-align:left;color:#f97316;">
-                                    ☀️ Alerta UV{% if regiao %} — {{ regiao }}{% endif %}
+                                    ☀️ Alerta UV{% if regiao %} — {{ regiao|e }}{% endif %}
                                   </div>
                                 </td>
                               </tr>
@@ -77,7 +77,7 @@
                                 <td align="left" style="font-size:0px;padding:8px 25px;word-break:break-word;">
                                   <div style="font-family:Arial, sans-serif;font-size:16px;line-height:1.4;text-align:left;color:#333333;">
                                     <strong>UV máximo de hoje:</strong>
-                                    {{ uv_max if uv_max is not none else 'Indisponível' }}
+                                    {{ (uv_max if uv_max is not none else 'Indisponível')|e }}
                                   </div>
                                 </td>
                               </tr>
@@ -87,7 +87,7 @@
                               <tr>
                                 <td align="left" style="font-size:0px;padding:4px 25px 8px;word-break:break-word;">
                                   <div style="font-family:Arial, sans-serif;font-size:14px;line-height:1.4;text-align:left;color:#555555;">
-                                    <strong>UV agora:</strong> {{ uv_now }}
+                                    <strong>UV agora:</strong> {{ uv_now|e }}
                                   </div>
                                 </td>
                               </tr>
@@ -104,7 +104,7 @@
                               </tr>
                               {% endif %}
 
-                              <!-- Texto de nível (usa |safe) -->
+                              <!-- Texto de nível (usa |safe porque é 100% gerado pelo servidor) -->
                               <tr>
                                 <td align="left" style="font-size:0px;padding:12px 25px;word-break:break-word;">
                                   <div style="font-family:Arial, sans-serif;font-size:15px;line-height:1.6;text-align:left;color:#333333;">
@@ -120,7 +120,7 @@
                                     <tbody>
                                       <tr>
                                         <td align="center" bgcolor="#f97316" role="presentation" style="border:none;border-radius:20px;cursor:auto;mso-padding-alt:10px 25px;background:#f97316;" valign="middle">
-                                          <a href="{{ descadastro_link }}" style="display:inline-block;background:#f97316;color:white;font-family:Arial, sans-serif;font-size:13px;font-weight:bold;line-height:120%;margin:0;text-decoration:none;text-transform:none;padding:10px 25px;mso-padding-alt:0px;border-radius:20px;" target="_blank">
+                                          <a href="{{ descadastro_link|e }}" style="display:inline-block;background:#f97316;color:white;font-family:Arial, sans-serif;font-size:13px;font-weight:bold;line-height:120%;margin:0;text-decoration:none;text-transform:none;padding:10px 25px;mso-padding-alt:0px;border-radius:20px;" target="_blank">
                                             Descadastrar
                                           </a>
                                         </td>
@@ -136,7 +136,7 @@
                                   <div style="font-family:Arial, sans-serif;font-size:12px;line-height:1.4;text-align:left;color:#777777;">
                                     Se não quiser mais receber nossos alertas, clique no botão acima para sair da lista.<br>
                                     Caso o botão não funcione, copie e cole este link no navegador:<br>
-                                    <span style="word-break:break-all;">{{ descadastro_link }}</span>
+                                    <span style="word-break:break-all;">{{ descadastro_link|e }}</span>
                                   </div>
                                 </td>
                               </tr>

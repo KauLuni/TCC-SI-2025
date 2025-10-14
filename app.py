@@ -13,6 +13,7 @@ import os
 import math
 import pandas as pd
 from sqlalchemy import create_engine, text
+from itsdangerous import URLSafeTimedSerializer, BadSignature, SignatureExpired
 
 # ===================== Build / Diagnóstico =====================
 APP_BUILD = "build-2025-10-05-uvmax+uvnow+regiao+fallback"
@@ -22,6 +23,14 @@ app = Flask(__name__, static_folder="static", static_url_path="/static")
 app.url_map.strict_slashes = False
 CORS(app)
 app.secret_key = "cadastro"
+serializer = URLSafeTimedSerializer(app.secret_key)
+
+def make_unsub_token(email: str) -> str:
+    return serializer.dumps({"email": email}, salt="unsub")
+
+def load_unsub_token(token: str, max_age=60*60*24*7):
+    # expira em 7 dias (ajuste se quiser)
+    return serializer.loads(token, salt="unsub", max_age=max_age)
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 
 # ===================== Banco (SQLAlchemy - e-mails) =====================
@@ -376,7 +385,9 @@ def cadastro_email():
     place = reverse_geocode_osm(latitude, longitude)
     regiao = format_regiao_from_place(place, latitude, longitude)
 
-    descadastro_link = f"http://localhost:5051/descadastrar?email={email}"
+    token = make_unsub_token(email)
+    descadastro_link = f"{BASE_URL}/descadastrar?token={token}"
+
 
     msg = Message(
         subject=f"Cadastro confirmado - Monitoramento UV ({regiao})",
@@ -392,24 +403,45 @@ def cadastro_email():
     )
     try:
         mail.send(msg)
-    except Exception as e:
+    except Exception:
+        # registra o erro completo no log do servidor (com stacktrace)
+        app.logger.exception("Falha ao enviar e-mail de confirmação para %s", email)
         db.session.delete(novo_email)
         db.session.commit()
-        return jsonify({"success": False, "message": f"Falha ao enviar e-mail: {e}"}), 500
+        return jsonify({
+            "success": False,
+            "message": "Erro ao processar o envio do e-mail. Tente novamente mais tarde."
+    }), 500
+
 
     return jsonify({"success": True, "message": "Cadastro feito com sucesso! Verifique seu e-mail."}), 200
 
-@app.get("/descadastrar")
+@app.route("/descadastrar", methods=["GET", "POST"])
 def descadastrar():
-    email = (request.args.get("email") or "").strip()
-    if not email:
-        return "E-mail não informado.", 400
+    # aceita token via GET (?token=...) ou via JSON/form
+    token = (
+        request.args.get("token")
+        or (request.json or {}).get("token")
+        or request.form.get("token")
+    )
+    if not token:
+        return "Token ausente.", 400
+
+    try:
+        data = load_unsub_token(token)
+        email = (data.get("email") or "").strip()
+    except SignatureExpired:
+        return "Link expirado. Solicite novo descadastro.", 400
+    except BadSignature:
+        return "Link inválido.", 400
+
     registro = Email.query.filter_by(email=email).first()
     if not registro:
         return "E-mail não encontrado ou já descadastrado.", 404
+
     db.session.delete(registro)
     db.session.commit()
-    return "Você foi descadastrado com sucesso. ✅"
+    return "Você foi descadastrado com sucesso. ✅", 200
 
 # ===================== Envio diário =====================
 def envia_emails_diarios():
@@ -432,7 +464,8 @@ def envia_emails_diarios():
             base_para_nivel = uv_max if uv_max is not None else uv_now
             nivel_max = texto_nivel(base_para_nivel)
 
-            descadastro_link = f"http://localhost:5051/descadastrar?email={e.email}"
+            token = make_unsub_token(e.email)
+            descadastro_link = f"{BASE_URL}/descadastrar?token={token}"
 
             email_html = render_email(
                 uv_max=uv_max if uv_max is not None else "Indisponível",
@@ -453,10 +486,10 @@ def envia_emails_diarios():
             try:
                 mail.send(msg)
                 total_enviados += 1
-                print(f"[envio] ✅ {e.email} | UVmax={uv_max} | UVagora={uv_now} | {regiao}")
+                print(f"[envio] [OK]   {e.email} | UVmax={uv_max} | UVagora={uv_now} | {regiao}")
             except Exception as erro:
                 total_falhas += 1
-                print(f"[envio] ❌ Falha para {e.email}: {erro}")
+                print(f"[envio] [FAIL] {e.email}: {erro}")
 
         print(f"[envio] Finalizado: {total_enviados} enviados, {total_falhas} falhas.")
 
@@ -656,7 +689,7 @@ def api_graficos_historico():
 # ===================== Scheduler/Boot =====================
 scheduler = BackgroundScheduler(daemon=True, timezone="America/Sao_Paulo")
 # ajuste o horário que preferir:
-scheduler.add_job(envia_emails_diarios, "cron", hour=11, minute=30, id="envio_diario_uv")
+scheduler.add_job(envia_emails_diarios, "cron", hour=22, minute=50, id="envio_diario_uv")
 
 def log_next_runs():
     for job in scheduler.get_jobs():

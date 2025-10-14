@@ -1,5 +1,3 @@
-
-
 // ===== Smooth scroll robusto 
 (() => {
   const HEADER_HEIGHT =
@@ -96,7 +94,6 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // e-mail do cliente //
-
 document.addEventListener('DOMContentLoaded', () => {
   const emailEl = document.getElementById('email');
   const msgEl   = document.getElementById('mensagem');
@@ -107,9 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
     return;
   }
 
-  
   btn.addEventListener('click', enviarLocalizacao);
- 
   window.enviarLocalizacao = enviarLocalizacao;
 
   function enviarLocalizacao() {
@@ -143,18 +138,29 @@ document.addEventListener('DOMContentLoaded', () => {
           })
         });
 
-        // trata erros HTTP (400/409/500) mostrando a mensagem do servidor
-        if (!resp.ok) {
-          const txt = await resp.text().catch(() => '');
-          throw new Error(txt || `Falha no cadastro (HTTP ${resp.status})`);
+        // ===== Novo tratamento de erros seguro =====
+        let data = {};
+        try {
+          data = await resp.json();
+        } catch (_) {
+          data = {};
         }
 
-        const data = await resp.json().catch(() => ({}));
+        if (!resp.ok) {
+          // Mensagens seguras para o usuário
+          if (resp.status === 400 || resp.status === 409) {
+            mostrarMensagem(data.message || 'Não foi possível concluir o cadastro.', true);
+          } else {
+            mostrarMensagem('Falha ao cadastrar. Tente novamente mais tarde.', true);
+          }
+          return;
+        }
+
         mostrarMensagem(data.message || 'Cadastro realizado! ✅', false);
         emailEl.value = '';
       } catch (e) {
         console.error(e);
-        mostrarMensagem('Erro ao enviar os dados. ' + (e.message || ''), true);
+        mostrarMensagem('Erro de rede ao enviar os dados. Tente novamente.', true);
       }
     }, (error) => {
       mostrarMensagem('Não foi possível obter a localização: ' + error.message, true);
@@ -169,7 +175,6 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // ajustes dos cards embaixo //
-
 document.addEventListener("DOMContentLoaded", () => {
   const cards = document.querySelectorAll('.scroll-reveal');
 
@@ -267,14 +272,27 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function exibirPergunta() {
     const p = perguntas[perguntaAtual];
-    container.innerHTML = `
-      <p>${p.pergunta}</p>
-      ${p.opcoes.map(o => `
-        <label>
-          <input type="radio" name="resposta" value="${o.valor}"> ${o.texto}
-        </label><br>
-      `).join('')}
-    `;
+    container.replaceChildren(); // limpa
+
+    const pEl = document.createElement('p');
+    pEl.textContent = p.pergunta;
+    container.appendChild(pEl);
+
+    p.opcoes.forEach(o => {
+      const label = document.createElement('label');
+      const input = document.createElement('input');
+      input.type = 'radio';
+      input.name = 'resposta';
+      input.value = o.valor;
+
+      const txt = document.createTextNode(' ' + o.texto);
+
+      label.appendChild(input);
+      label.appendChild(txt);
+      container.appendChild(label);
+      container.appendChild(document.createElement('br'));
+    });
+
     atualizarProgresso(); // Atualiza a barra aqui
   }
 
@@ -308,22 +326,29 @@ document.addEventListener("DOMContentLoaded", () => {
       if (r === perguntas[i].correta) acertos++;
     });
 
-    resultadoDiv.innerHTML = `
-      <h3>Resultado:</h3>
-      <p>Você acertou <strong>${acertos} de ${perguntas.length}</strong> perguntas.</p>
-    `;
+    // ===== Sem innerHTML: cria DOM com segurança =====
+    resultadoDiv.replaceChildren();
+
+    const h3 = document.createElement('h3');
+    h3.textContent = 'Resultado:';
+
+    const pRes = document.createElement('p');
+    pRes.append('Você acertou ');
+
+    const strong = document.createElement('strong');
+    strong.textContent = `${acertos} de ${perguntas.length}`;
+    pRes.appendChild(strong);
+    pRes.append(' perguntas.');
+
+    resultadoDiv.append(h3, pRes);
   }
 
   exibirPergunta(); // Inicia com a primeira pergunta
 });
 
 // busca de dermatologista // 
-
-
 document.addEventListener('DOMContentLoaded', () => {
- 
   // Seletores / Estado
-  
   const mapEl = document.getElementById('mapDerm');
   const listaEl = document.getElementById('listaDerm');
   const btnBuscar = document.getElementById('btnBuscar');
@@ -347,11 +372,12 @@ document.addEventListener('DOMContentLoaded', () => {
   // Mantém último conjunto já filtrado por Tipo (hospital/clinic/derm)
   let lastBaseList = []; 
 
- 
   // Utilidades
- 
   function setStatus(msg) {
-    listaEl.innerHTML = `<li>${msg}</li>`;
+    listaEl.innerHTML = ''; // limpa
+    const li = document.createElement('li');
+    li.textContent = msg;   // texto seguro
+    listaEl.appendChild(li);
   }
 
   function haversineKm(lat1, lon1, lat2, lon2) {
@@ -363,9 +389,7 @@ document.addEventListener('DOMContentLoaded', () => {
     return R * (2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a)));
   }
 
-  
   // Mapa e localização do usuário
-  
   function initMap(lat, lon) {
     if (!map) {
       map = L.map(mapEl).setView([lat, lon], 14);
@@ -422,9 +446,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-
   // Overpass (consulta OSM)
- 
   function buildOverpassQuery(lat, lon, radiusMeters, tipo) {
     const around = `around:${radiusMeters},${lat},${lon}`;
     const blocks = [];
@@ -450,12 +472,10 @@ document.addEventListener('DOMContentLoaded', () => {
       blocks.push(`node["name"~"Dermatolog|Dermato|Pele",i](${around}); way["name"~"Dermatolog|Dermato|Pele",i](${around}); relation["name"~"Dermatolog|Dermato|Pele",i](${around});`);
     }
 
-   
     if (tipo === 'all') {
       blocks.push(`node[healthcare=doctor]["healthcare:speciality"~"dermatology",i](${around}); way[healthcare=doctor]["healthcare:speciality"~"dermatology",i](${around}); relation[healthcare=doctor]["healthcare:speciality"~"dermatology",i](${around});`);
       blocks.push(`node["medical_specialty"~"dermatology",i](${around}); way["medical_specialty"~"dermatology",i](${around}); relation["medical_specialty"~"dermatology",i](${around});`);
     }
-
 
     return `
       [out:json][timeout:40];
@@ -504,9 +524,7 @@ document.addEventListener('DOMContentLoaded', () => {
     return { id: e.type + '/' + e.id, lat, lon, tags, name, addr, phone, website };
   }
 
- 
   // Filtros de Dermatologia / Gestão
-
   function hasDermSpecialty(tags = {}) {
     const t = (k) => (tags[k] || '').toString().toLowerCase();
     const anyIncludes = (...vals) => vals.some(v => v && /dermato|dermatolog|skin|pele/.test(v));
@@ -528,7 +546,6 @@ document.addEventListener('DOMContentLoaded', () => {
     return s;
   }
 
-  
   function inferOwnership(tags = {}) {
     const v = (k) => (tags[k] || '').toString().toLowerCase();
 
@@ -536,19 +553,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const ownership = v('ownership');   
     const operator = v('operator');     
 
-  
     if (['public', 'government', 'municipal', 'state', 'federal'].includes(opType)) return 'public';
     if (opType === 'private') return 'private';
 
     if (/(^|\b)(public|government|municipal|state|federal)(\b|$)/.test(ownership)) return 'public';
     if (/private/.test(ownership)) return 'private';
 
-  
     if (/(prefeitura|municipal|estadual|federal|secretaria|sus|ubs|posto de saúde|hospital universit[aá]rio)/.test(operator)) {
       return 'public';
     }
     if (/(santa casa|miseric[óo]rdia|irmandade|filant|benefic|unimed|hapvida|amil|bradesco|prevent senior)/.test(operator)) {
-    
       return 'private';
     }
 
@@ -561,11 +575,9 @@ document.addEventListener('DOMContentLoaded', () => {
     return { label: 'Indefinido', cls: 'badge badge-unknown' };
   }
 
-
   function renderListAndMarkers(baseList) {
     markersLayer.clearLayers();
 
- 
     const mode = (filtroGestao?.value || 'all');
     let lista = baseList.filter(p => {
       if (mode === 'public') return p.own === 'public';
@@ -583,32 +595,111 @@ document.addEventListener('DOMContentLoaded', () => {
     const frag = document.createDocumentFragment();
     for (const p of lista) {
       const m = L.marker([p.lat, p.lon]).addTo(markersLayer);
-      m.bindPopup(`
-        <strong>${p.name}</strong><br/>
-        ${p.addr || 'Endereço não informado'}<br/>
-        ${p.phone ? '☎ ' + p.phone + '<br/>' : ''}
-        <a href="https://www.openstreetmap.org/directions?engine=fossgis_osrm_car&route=${userPos.lat}%2C${userPos.lon}%3B${p.lat}%2C${p.lon}" target="_blank">Rota (OSM)</a> |
-        <a href="https://www.google.com/maps/dir/?api=1&destination=${p.lat},${p.lon}" target="_blank">Rota (Google)</a>
-        ${p.website ? `<br/><a href="${p.website}" target="_blank" rel="noopener">Site</a>` : ''}
-      `);
+
+      function safeHttpUrl(u) {
+        try {
+          const url = new URL(u, location.origin);
+          return (url.protocol === 'http:' || url.protocol === 'https:') ? url.href : null;
+        } catch { return null; }
+      }
+      function makeLink(href, text) {
+        const a = document.createElement('a');
+        a.textContent = text;
+        a.rel = 'noopener';
+        a.target = '_blank';
+        a.href = href;
+        return a;
+      }
+      function makePopupContent(p) {
+        const wrap = document.createElement('div');
+
+        const strong = document.createElement('strong');
+        strong.textContent = p.name;
+        wrap.appendChild(strong);
+        wrap.appendChild(document.createElement('br'));
+
+        const addr = document.createElement('span');
+        addr.textContent = p.addr || 'Endereço não informado';
+        wrap.appendChild(addr);
+        wrap.appendChild(document.createElement('br'));
+
+        if (p.phone) {
+          const phoneSpan = document.createElement('span');
+          phoneSpan.textContent = `☎ ${p.phone}`;
+          wrap.appendChild(phoneSpan);
+          wrap.appendChild(document.createElement('br'));
+        }
+
+        const routeOSM = makeLink(
+          `https://www.openstreetmap.org/directions?engine=fossgis_osrm_car&route=${userPos.lat}%2C${userPos.lon}%3B${p.lat}%2C${p.lon}`,
+          'Rota (OSM)'
+        );
+        const sep = document.createTextNode(' | ');
+        const routeGoogle = makeLink(
+          `https://www.google.com/maps/dir/?api=1&destination=${p.lat},${p.lon}`,
+          'Rota (Google)'
+        );
+
+        wrap.appendChild(routeOSM);
+        wrap.appendChild(sep);
+        wrap.appendChild(routeGoogle);
+
+        if (p.website) {
+          const safe = safeHttpUrl(p.website);
+          if (safe) {
+            wrap.appendChild(document.createElement('br'));
+            wrap.appendChild(makeLink(safe, 'Site'));
+          }
+        }
+        return wrap;
+      }
+
+      m.bindPopup(makePopupContent(p));  // passa o elemento, não HTML
 
       const { label, cls } = ownershipBadge(p.own);
 
       const li = document.createElement('li');
       li.className = 'busca-derm__item';
-      li.innerHTML = `
-        <div class="busca-derm__title">
-          ${p.name}
-          <span class="${cls}">${label}</span>
-        </div>
-        <div class="busca-derm__meta">${p.addr || 'Endereço não informado'} • ${p.dist.toFixed(1)} km</div>
-        <div class="busca-derm__links">
-          <a href="https://www.openstreetmap.org/directions?engine=fossgis_osrm_car&route=${userPos.lat}%2C${userPos.lon}%3B${p.lat}%2C${p.lon}" target="_blank">Rota (OSM)</a>
-          <a href="https://www.google.com/maps/dir/?api=1&destination=${p.lat},${p.lon}" target="_blank">Rota (Google)</a>
-          ${p.phone ? `<a href="tel:${p.phone.replace(/\s+/g,'')}">Ligar</a>` : ''}
-          ${p.website ? `<a href="${p.website}" target="_blank" rel="noopener">Site</a>` : ''}
-        </div>
-      `;
+
+      // título
+      const title = document.createElement('div');
+      title.className = 'busca-derm__title';
+      title.textContent = p.name;
+
+      const badge = document.createElement('span');
+      badge.className = cls;
+      badge.textContent = label;
+      title.appendChild(badge);
+
+      // meta
+      const meta = document.createElement('div');
+      meta.className = 'busca-derm__meta';
+      meta.textContent = `${p.addr || 'Endereço não informado'} • ${p.dist.toFixed(1)} km`;
+
+      // links
+      const links = document.createElement('div');
+      links.className = 'busca-derm__links';
+
+      const osmHref = `https://www.openstreetmap.org/directions?engine=fossgis_osrm_car&route=${userPos.lat}%2C${userPos.lon}%3B${p.lat}%2C${p.lon}`;
+      links.appendChild(makeLink(osmHref, 'Rota (OSM)'));
+
+      const gHref = `https://www.google.com/maps/dir/?api=1&destination=${p.lat},${p.lon}`;
+      links.appendChild(makeLink(gHref, 'Rota (Google)'));
+
+      if (p.phone) {
+        const tel = document.createElement('a');
+        tel.textContent = 'Ligar';
+        tel.href = `tel:${String(p.phone).replace(/\s+/g,'')}`;
+        links.appendChild(tel);
+      }
+
+      if (p.website) {
+        const safe = safeHttpUrl(p.website);
+        if (safe) links.appendChild(makeLink(safe, 'Site'));
+      }
+
+      li.replaceChildren(title, meta, links);
+
       li.addEventListener('mouseenter', () => m.openPopup());
       li.addEventListener('click', () => {
         map.setView([p.lat, p.lon], 16);
@@ -627,10 +718,8 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-   
     const norm = elements.map(normalizeElement).filter(p => p.lat && p.lon);
 
-  
     let lista = norm;
     if (filtroTipo === 'derm') {
       let dermOnly = norm.filter(p => hasDermSpecialty(p.tags));
@@ -642,7 +731,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
-
     const enriched = lista
       .map(p => {
         const dist = haversineKm(userPos.lat, userPos.lon, p.lat, p.lon);
@@ -651,12 +739,10 @@ document.addEventListener('DOMContentLoaded', () => {
       })
       .sort((a, b) => (b.score - a.score) || (a.dist - b.dist));
 
-    
     lastBaseList = enriched;
 
     renderListAndMarkers(lastBaseList);
   }
-
 
   async function buscar() {
     setStatus('Buscando locais próximos…');
@@ -710,13 +796,10 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Inicialização
-
   initMap(userPos.lat, userPos.lon);
 });
 
-
 // graficos //
-
 const API_BASE = ""; 
 const MIN_ANO = 2000, MAX_ANO_OBS = 2023, MAX_ANO_PREV = 2033;
 
@@ -845,7 +928,6 @@ async function renderCorrelacao(start, end){
     }
   });
 }
-
 
 async function refreshAll(){
   clearError();
