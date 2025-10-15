@@ -172,7 +172,7 @@ def consulta_uv_daily_max(latitude, longitude):
     """
     api_key = "3f59fb330add1cfad36119abb1e4d8cb"
 
-    # 1) Tenta One Call (muitos planos exigem assinatura para este endpoint)
+    # Tenta One Call (muitos planos exigem assinatura para este endpoint)
     try:
         r = requests.get(
             "https://api.openweathermap.org/data/2.5/onecall",
@@ -688,7 +688,7 @@ def api_graficos_historico():
 scheduler = BackgroundScheduler(daemon=True, timezone="America/Sao_Paulo")
 
 # horário fixo de disparo do e-mail seguindo o fuso horário de Brasília
-scheduler.add_job(envia_emails_diarios, "cron", hour=22, minute=10, id="envio_diario_uv")
+scheduler.add_job(envia_emails_diarios, "cron", hour=11, minute=30, id="envio_diario_uv")
 
 def log_next_runs():
     for job in scheduler.get_jobs():
