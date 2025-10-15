@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Sistema de Monitoramento de Radiação UV com Flask (unificado)
 
 from flask import Flask, render_template, request, jsonify, render_template_string
@@ -6,7 +5,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_mail import Mail, Message
 from apscheduler.schedulers.background import BackgroundScheduler
 from flask_cors import CORS
-from datetime import datetime, timedelta
+from datetime import datetime
 import requests
 import re
 import os
@@ -28,8 +27,7 @@ serializer = URLSafeTimedSerializer(app.secret_key)
 def make_unsub_token(email: str) -> str:
     return serializer.dumps({"email": email}, salt="unsub")
 
-def load_unsub_token(token: str, max_age=60*60*24*7):
-    # expira em 7 dias (ajuste se quiser)
+def load_unsub_token(token: str, max_age=60*60*24*7):     # expira em 7 dias
     return serializer.loads(token, salt="unsub", max_age=max_age)
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 
@@ -41,8 +39,7 @@ db = SQLAlchemy(app)
 # ===================== Engine (SQLAlchemy - gráficos TCC) =====================
 ENGINE_TCC = create_engine(
     "mysql+mysqlconnector://root:Kauan1807%40@localhost:3306/tcc",
-    pool_pre_ping=True,
-)
+    pool_pre_ping=True,)
 
 # ===================== E-mail =====================
 app.config["MAIL_SERVER"] = "smtp.gmail.com"
@@ -82,22 +79,23 @@ def home():
 def ping():
     return "pong", 200
 
-@app.get("/__routes")
-def __routes():
-    return {"routes": [str(r) for r in app.url_map.iter_rules()]}, 200
+if os.getenv("ENABLE_DIAG_ROUTES") == "1":
+    @app.get("/__routes")
+    def __routes():
+        return {"routes": [str(r) for r in app.url_map.iter_rules()]}, 200
 
-@app.get("/__whoami")
-def __whoami():
-    return f"OK | file={os.path.abspath(__file__)} | build={APP_BUILD}", 200
+    @app.get("/__whoami")
+    def __whoami():
+        return f"OK | file={os.path.abspath(__file__)} | build={APP_BUILD}", 200
 
-@app.get("/__versions")
-def __versions():
-    import sqlalchemy, pandas
-    return jsonify({
-        "build": APP_BUILD,
-        "pandas": pandas.__version__,
-        "sqlalchemy": sqlalchemy.__version__
-    }), 200
+    @app.get("/__versions")
+    def __versions():
+        import sqlalchemy, pandas
+        return jsonify({
+            "build": APP_BUILD,
+            "pandas": pandas.__version__,
+            "sqlalchemy": sqlalchemy.__version__
+        }), 200
 
 # ===================== Helpers =====================
 EMAIL_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
@@ -494,7 +492,7 @@ def envia_emails_diarios():
         print(f"[envio] Finalizado: {total_enviados} enviados, {total_falhas} falhas.")
 
 @app.get("/testar_envio")
-def testar_envio():
+def testar_envio():        
     envia_emails_diarios()
     return "Notificações enviadas com sucesso (teste manual)!"
 
@@ -688,8 +686,9 @@ def api_graficos_historico():
 
 # ===================== Scheduler/Boot =====================
 scheduler = BackgroundScheduler(daemon=True, timezone="America/Sao_Paulo")
-# ajuste o horário que preferir:
-scheduler.add_job(envia_emails_diarios, "cron", hour=22, minute=50, id="envio_diario_uv")
+
+# horário fixo de disparo do e-mail seguindo o fuso horário de Brasília
+scheduler.add_job(envia_emails_diarios, "cron", hour=22, minute=10, id="envio_diario_uv")
 
 def log_next_runs():
     for job in scheduler.get_jobs():

@@ -138,7 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
           })
         });
 
-        // ===== Novo tratamento de erros seguro =====
+        // ===== Novo tratamento de erros =====
         let data = {};
         try {
           data = await resp.json();
@@ -147,7 +147,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (!resp.ok) {
-          // Mensagens seguras para o usuário
           if (resp.status === 400 || resp.status === 409) {
             mostrarMensagem(data.message || 'Não foi possível concluir o cadastro.', true);
           } else {
@@ -156,7 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
           return;
         }
 
-        mostrarMensagem(data.message || 'Cadastro realizado! ✅', false);
+        mostrarMensagem(data.message || 'Cadastro realizado!', false);
         emailEl.value = '';
       } catch (e) {
         console.error(e);
@@ -359,6 +358,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const inputEndereco = document.getElementById('enderecoBusca');
   const btnEndereco = document.getElementById('btnEndereco');
   const btnUsarGps = document.getElementById('btnUsarGps');
+
+  // Atualiza automaticamente o ano no rodapé
+  const y = document.getElementById('copy-year');
+  if (y) y.textContent = String(new Date().getFullYear());
 
   if (!mapEl || !listaEl || !btnBuscar || !radiusSelect || !tipoSelect) {
     console.error('busca-derm: elementos não encontrados. Verifique os IDs no HTML.');
