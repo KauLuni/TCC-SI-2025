@@ -132,7 +132,7 @@
   // ---------- 2) Preditivo ----------
   let chartPreditivo;
   async function tryModelo(modelo) {
-    const data = await getJSON(`/api/preditivo/anual?modelo=${encodeURIComponent(modelo)}`);
+    const data = await getJSON(`/api/preditivo/anual?modelo=${encodeURIComponent(modelo)}`); 
     if (!Array.isArray(data) || data.length === 0)
       throw new Error(`Sem dados para o modelo '${modelo}'.`);
     return { modelo, data };
@@ -164,6 +164,7 @@
             { label: "Intervalo 95% (alto)",  data: hi95, borderWidth: 1, pointRadius: 0 },
           ],
         },
+
         options: {
           responsive: true,
           maintainAspectRatio: false,
@@ -214,7 +215,6 @@
         throw new Error("Sem dados para correlação.");
 
       const temUV = data.some(d => d.uv_medio != null);
-
       if (temUV) {
         const pontos = data
           .filter(d => d.uv_medio != null)

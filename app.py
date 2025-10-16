@@ -552,8 +552,8 @@ def debug_uv_emails():
     return jsonify(out), 200
 
 # ===================== APIs de Gráficos (TCC) =====================
-# 1) Histórico de incidências por ano (2000–2023)
-@app.get("/api/incidencia/anual")
+
+@app.get("/api/incidencia/anual") # 1) Histórico de incidências por ano (2000–2023)
 def incidencia_anual():
     print("[ROUTE] /api/incidencia/anual", APP_BUILD)
     start = int(request.args.get("start", 2000))
@@ -571,8 +571,7 @@ def incidencia_anual():
     df = run_query(sql, {"start": start, "end": end})
     return jsonify(df.to_dict(orient="records")), 200
 
-# 2) Preditivo até 2033 (ARIMA | ETS)
-@app.get("/api/preditivo/anual")
+@app.get("/api/preditivo/anual")  # 2) Preditivo até 2033 (ARIMA | ETS)
 def preditivo_anual():
     print("[ROUTE] /api/preditivo/anual", APP_BUILD)
     modelo = (request.args.get("modelo", "ARIMA") or "ARIMA").upper()
@@ -587,8 +586,7 @@ def preditivo_anual():
     df = run_query(sql, {"modelo": modelo})
     return jsonify(df.to_dict(orient="records")), 200
 
-# 3) Correlação UV x Casos (sem UV médio por enquanto)
-@app.get("/api/correlacao/uv-incidencia")
+@app.get("/api/correlacao/uv-incidencia")  # 3) Correlação UV x Casos
 def correlacao_uv():
     print("[ROUTE] /api/correlacao/uv-incidencia", APP_BUILD)
     start = int(request.args.get("start", 2000))
