@@ -234,7 +234,7 @@
             cursor: pointer;
         ">✖</button>
     </div>
-    <h3 style="margin: 0 0 10px 0;">Índice UV Hoje na Sua Região:</h3>
+    <h3 style="margin: 0 0 10px 0;">Último cálculo diurno do Índice UV da sua região:</h3>
     <div id="uv-icon" style="font-size: 50px; margin-bottom: 10px;">☀️</div>
     <div id="uv-value" style="font-size: 2em; font-weight: bold;">Carregando...</div>
     <div id="uv-level" style="margin-top: 10px;">...</div>
@@ -643,6 +643,73 @@
 </div>
 <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
 <script> new window.VLibras.Widget('https://vlibras.gov.br/app'); </script>
+
+<!-- 🔊 Botões de Leitura em Voz - Tema Dezembro Laranja -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  // ===== Botão "Ouvir esta página" =====
+  const btnOuvir = document.createElement('button');
+  btnOuvir.textContent = '📢 Ouvir esta página';
+  Object.assign(btnOuvir.style, {
+    position: 'fixed',
+    bottom: '70px',
+    left: '15px',
+    padding: '12px 18px',
+    background: '#f97316',
+    color: '#fff',
+    border: 'none',
+    borderRadius: '10px',
+    fontSize: '16px',
+    fontWeight: 'bold',
+    cursor: 'pointer',
+    boxShadow: '0 4px 10px rgba(0,0,0,0.2)',
+    zIndex: 9999,
+    transition: 'background 0.3s ease'
+  });
+  btnOuvir.onmouseenter = () => btnOuvir.style.background = '#fb923c';
+  btnOuvir.onmouseleave = () => btnOuvir.style.background = '#f97316';
+
+  // ===== Botão "Parar leitura" =====
+  const btnParar = document.createElement('button');
+  btnParar.textContent = '⏹️ Parar leitura';
+  Object.assign(btnParar.style, {
+    position: 'fixed',
+    bottom: '120px',
+    left: '15px',
+    padding: '10px 16px',
+    background: '#374151',
+    color: '#fff',
+    border: 'none',
+    borderRadius: '8px',
+    fontSize: '14px',
+    fontWeight: 'bold',
+    cursor: 'pointer',
+    boxShadow: '0 3px 8px rgba(0,0,0,0.2)',
+    zIndex: 9999,
+    transition: 'background 0.3s ease'
+  });
+  btnParar.onmouseenter = () => btnParar.style.background = '#4b5563';
+  btnParar.onmouseleave = () => btnParar.style.background = '#374151';
+
+  // ===== Ações =====
+  btnOuvir.onclick = () => {
+    const texto = document.body.innerText.trim();
+    if (!texto) return alert("Nenhum texto encontrado para leitura.");
+    const utter = new SpeechSynthesisUtterance(texto);
+    utter.lang = 'pt-BR';
+    utter.rate = 1;
+    utter.pitch = 1;
+    speechSynthesis.cancel(); // cancela qualquer leitura anterior
+    speechSynthesis.speak(utter);
+  };
+
+  btnParar.onclick = () => speechSynthesis.cancel();
+
+  // ===== Adiciona os botões à página =====
+  document.body.appendChild(btnParar);
+  document.body.appendChild(btnOuvir);
+});
+</script>
 
 <!-- rodapé ajustado-->
 <footer class="site-footer" role="contentinfo">

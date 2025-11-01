@@ -686,7 +686,7 @@ def api_graficos_historico():
 scheduler = BackgroundScheduler(daemon=True, timezone="America/Sao_Paulo")
 
 # horário fixo de disparo do e-mail seguindo o fuso horário de Brasília
-scheduler.add_job(envia_emails_diarios, "cron", hour=11, minute=30, id="envio_diario_uv")
+scheduler.add_job(envia_emails_diarios, "cron", hour=16, minute=30, id="envio_diario_uv")
 
 def log_next_runs():
     for job in scheduler.get_jobs():
